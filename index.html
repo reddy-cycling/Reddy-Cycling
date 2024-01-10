@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cycling Group Portfolio</title>
+    <!-- Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* Center website */
+      .main {
+        max-width: 1000px;
+        margin: auto;
+      }
+
+      h1 {
+        font-size: 50px;
+        word-break: break-all;
+      }
+
+      .row {
+        margin: 10px -16px;
+      }
+
+      /* Add padding BETWEEN each column */
+      .row,
+      .row > .column {
+        padding: 8px;
+      }
+
+      /* Create three equal columns that floats next to each other */
+      .column {
+        float: left;
+        width: 33.33%;
+        display: none; /* Hide all elements by default */
+      }
+
+      /* Clear floats after rows */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      /* Content */
+      .content {
+        background-color: white;
+        padding: 10px;
+      }
+
+      /* The "show" class is added to the filtered elements */
+      .show {
+        display: block;
+      }
+
+      /* Style the buttons */
+      .btn {
+        border: none;
+        outline: none;
+        padding: 12px 16px;
+        background-color: white;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background-color: #ddd;
+      }
+
+      .btn.active {
+        background-color: #666;
+        color: white;
+      }
+    </style>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+      }
+
+      /* Background Image Section */
+      .hero {
+        background: url("cycle_wallpaper.jpg") center/cover no-repeat;
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(
+          0,
+          0,
+          0,
+          0.5
+        ); /* Adjust the alpha value for the desired level of darkness */
+      }
+
+      /* Navigation Bar Styles */
+      nav {
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.8
+        ); /* Adjust the alpha value for the desired level of transparency */
+        padding: 1rem;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 1rem;
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
+
+      .gallbody {
+        display: grid;
+        place-items: center;
+        min-height: 20vh;
+      }
+
+      ul {
+        display: flex;
+        width: calc(100% - 3rem);
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+      }
+
+      li {
+        padding: 0;
+      }
+
+      img {
+        max-width: 100%;
+        width: 100%;
+        object-fit: cover;
+        transition: all 0.4s ease;
+      }
+
+      ul:is(:hover, :focus-within) img {
+        opacity: calc(0.1 + (var(--active-lerp, 0) * 0.9));
+        filter: grayscale(calc(1 - var(--active-lerp, 0)));
+      }
+
+      :root {
+        --lerp-0: 1;
+        --lerp-1: 0.5787037;
+        --lerp-2: 0.2962963;
+        --lerp-3: 0.125;
+        --lerp-4: 0.037037;
+        --lerp-5: 0.0046296;
+        --lerp-6: 0;
+      }
+
+      a {
+        outline-offset: 4px;
+      }
+
+      li {
+        flex: calc(0.1 + (var(--active-lerp, 0) * 1));
+        transition: flex 0.2s ease;
+      }
+
+      li:is(:hover, :focus-within) {
+        --active-lerp: var(--lerp-0);
+        z-index: 7;
+      }
+      li:has(+ li:is(:hover, :focus-within)),
+      li:is(:hover, :focus-within) + li {
+        --active-lerp: var(--lerp-1);
+        z-index: 6;
+      }
+      li:has(+ li + li:is(:hover, :focus-within)),
+      li:is(:hover, :focus-within) + li + li {
+        --active-lerp: var(--lerp-2);
+        z-index: 5;
+      }
+      li:has(+ li + li + li:is(:hover, :focus-within)),
+      li:is(:hover, :focus-within) + li + li + li {
+        --active-lerp: var(--lerp-3);
+        z-index: 4;
+      }
+      li:has(+ li + li + li + li:is(:hover, :focus-within)),
+      li:is(:hover, :focus-within) + li + li + li + li {
+        --active-lerp: var(--lerp-4);
+        z-index: 3;
+      }
+      li:has(+ li + li + li + li + li:is(:hover, :focus-within)),
+      li:is(:hover, :focus-within) + li + li + li + li + li {
+        --active-lerp: var(--lerp-5);
+        z-index: 2;
+      }
+      li:has(+ li + li + li + li + li + li:is(:hover, :focus-within)),
+      li:is(:hover, :focus-within) + li + li + li + li + li + li {
+        --active-lerp: var(--lerp-6);
+        z-index: 1;
+      }
+    </style>
+    <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          fontFamily: {
+            sans: ["Roboto", "sans-serif"],
+            body: ["Roboto", "sans-serif"],
+            mono: ["ui-monospace", "monospace"],
+          },
+        },
+        corePlugins: {
+          preflight: false,
+        },
+      };
+    </script>
+  </head>
+  <body class="font-sans bg-gray-200">
+    <!-- Background Image Section -->
+    <div class="hero relative">
+      <div class="overlay"></div>
+
+      <!-- Navigation Bar -->
+      <nav class="fixed rounded-2xl sm:rounded-0 m-2 top-0 left-0 right-0 z-10">
+        <div class="container mx-auto flex items-center justify-between">
+          <a href="#" class="text-white text-xl font-semibold"
+            >Reddy Cycling Group</a
+          >
+
+          <!-- Mobile Menu Icon -->
+          <div class="lg:hidden">
+            <button id="menu-toggle" class="text-white focus:outline-none">
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                ></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Navigation Links -->
+          <div id="menu" class="hidden lg:flex space-x-4">
+            <a href="index.html" class="text-white">Home</a>
+            <a href="#gallery" class="text-white">Gallery</a>
+            <a href="#about" class="text-white">About</a>
+            <a href="#achievements" class="text-white">Achievements</a>
+            <a href="#" onclick="scrollToBottom(); return false;"  class="text-white">Contact</a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Content Goes Here -->
+      <div class="container mx-auto flex items-center h-full">
+        <div class="text-white text-center z-20">
+          <h1 class="text-4xl font-bold mb-4">
+            Welcome to Reddy Cycling Group
+          </h1>
+          <p class="text-lg">
+            Explore our adventures and achievements on the road.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com -->
+    <div
+      id="carouselExampleCaptions"
+      class="relative"
+      data-te-carousel-init
+      data-te-ride="carousel"
+    >
+      <!--Carousel indicators-->
+      <div
+        class="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0"
+        data-te-carousel-indicators
+      >
+        <button
+          type="button"
+          data-te-target="#carouselExampleCaptions"
+          data-te-slide-to="0"
+          data-te-carousel-active
+          class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+          aria-current="true"
+          aria-label="Slide 1"
+        ></button>
+        <button
+          type="button"
+          data-te-target="#carouselExampleCaptions"
+          data-te-slide-to="1"
+          class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+          aria-label="Slide 2"
+        ></button>
+        <button
+          type="button"
+          data-te-target="#carouselExampleCaptions"
+          data-te-slide-to="2"
+          class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+          aria-label="Slide 3"
+        ></button>
+      </div>
+
+      <!--Carousel items-->
+      <div
+        class="relative rounded-xl m-4 overflow-hidden after:clear-both after:block after:content-['']"
+      >
+        <!--First item-->
+        <div
+          class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+          data-te-carousel-active
+          data-te-carousel-item
+          style="backface-visibility: hidden"
+        >
+          <img src="group.jpg" class="block w-full" alt="..." />
+        
+        </div>
+        <!--Second item-->
+        <div
+          class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+          data-te-carousel-item
+          style="backface-visibility: hidden"
+        >
+          <img src="group2.jpg" class="block w-full" alt="..." />
+         
+        </div>
+        <!--Third item-->
+        <div
+          class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+          data-te-carousel-item
+          style="backface-visibility: hidden"
+        >
+          <img src="group3.jpg" class="block w-full" alt="..." />
+          
+        </div>
+      </div>
+
+      <!--Carousel controls - prev item-->
+      <button
+        class="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+        type="button"
+        data-te-target="#carouselExampleCaptions"
+        data-te-slide="prev"
+      >
+        <span class="inline-block h-8 w-8">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 19.5L8.25 12l7.5-7.5"
+            />
+          </svg>
+        </span>
+        <span
+          class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+          >Previous</span
+        >
+      </button>
+      <!--Carousel controls - next item-->
+      <button
+        class="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+        type="button"
+        data-te-target="#carouselExampleCaptions"
+        data-te-slide="next"
+      >
+        <span class="inline-block h-8 w-8">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </span>
+        <span
+          class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+          >Next</span
+        >
+      </button>
+    </div>
+
+    <div id="about" class="container mx-auto mt-8 p-8">
+      <div class="text-center">
+        <h1 class="text-4xl font-extrabold text-indigo-600 mb-4">
+          🚴‍♂️ About Our Cycle Group 🚴‍♀️
+        </h1>
+        <p class="text-lg text-gray-600 mt-2">
+          The Reddy Cycle Group consists of seven members, each contributing to the group's success. Shriram Yelgate holds the position of leader, guiding and coordinating the group's activities. The other dedicated members include Manoj Kuchame, Venket Gomage, Narsinha Gomare, Dayanand Kodbole, Praven Gomare, and Mohan Gomare. Together, they work cohesively to achieve their goals and promote cycling as a healthy and eco-friendly mode of transportation in their community. With Shriram Yelgate's leadership, this group is undoubtedly making a positive impact on cycling enthusiasts in their area.
+        </p>
+      </div>
+
+      <!-- About Content -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+        <!-- About Item 1 -->
+        <div
+          class="bg-yellow-200 p-6 shadow-md rounded-lg text-center transform hover:scale-105 transition-transform"
+        >
+          <h2 class="text-xl font-semibold mb-2">🌈 Colorful Rides</h2>
+          <p class="text-gray-700">
+            We believe in adding a splash of color to every ride. Join us for
+            vibrant adventures!
+          </p>
+        </div>
+
+        <!-- About Item 2 -->
+        <div
+          class="bg-blue-200 p-6 shadow-md rounded-lg text-center transform hover:scale-105 transition-transform"
+        >
+          <h2 class="text-xl font-semibold mb-2">🤹‍♂️ Circus Skills</h2>
+          <p class="text-gray-700">
+            Unleash your inner performer! Our group rides sometimes include
+            circus skill workshops.
+          </p>
+        </div>
+
+        <!-- About Item 3 -->
+        <div
+          class="bg-pink-200 p-6 shadow-md rounded-lg text-center transform hover:scale-105 transition-transform"
+        >
+          <h2 class="text-xl font-semibold mb-2">🎉 Party Pedals</h2>
+          <p class="text-gray-700">
+            Every ride is a celebration! We bring the party to the pedals with
+            music and dancing.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="gallery"
+      class="gallbody bg-gray-100 border-2 border-white p-4 shadow-lg m-4 rounded-2xl"
+    >
+      <div class="container mx-auto p-8">
+        <div class="text-center">
+          <h1 class="text-4xl font-extrabold text-indigo-600">Gallery</h1>
+          <p class="text-lg text-gray-600 mt-2">
+            Explore our beautiful collection of images.
+          </p>
+        </div>
+      </div>
+      <ul class="results">
+        <li class="result">
+          <a href="#"
+            ><img src="gall1.jpeg" width="500" height="500" alt=""
+          /></a>
+        </li>
+        <li class="result">
+          <a href="#"
+            ><img src="gall2.jpeg" width="500" height="500" alt=""
+          /></a>
+        </li>
+        <li class="result">
+          <a href="#"
+            ><img src="gall3.jpeg" width="500" height="500" alt=""
+          /></a>
+        </li>
+        <li class="result">
+          <a href="#"
+            ><img src="gall4.jpeg" width="500" height="500" alt=""
+          /></a>
+        </li>
+        <li class="result">
+          <a href="#"
+            ><img src="gall5.jpeg" width="500" height="500" alt=""
+          /></a>
+        </li>
+        <li class="result">
+          <a href="#"
+            ><img src="gall6.jpeg" width="500" height="500" alt=""
+          /></a>
+        </li>
+        <li class="result">
+          <a href="#"
+            ><img src="gall7.jpeg" width="500" height="500" alt=""
+          /></a>
+        </li>
+        <li class="result">
+          <a href="#"
+            ><img src="gall8.jpeg" width="500" height="500" alt=""
+          /></a>
+        </li>
+        <li class="result">
+          <a href="#"
+            ><img src="gall9.jpeg" width="500" height="500" alt=""
+          /></a>
+        </li>
+        <li class="result">
+          <a href="#"
+            ><img src="gall10.jpeg" width="500" height="500" alt=""
+          /></a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="container mx-auto mt-8 p-8">
+      <div class="text-center">
+        <h1 class="text-4xl font-extrabold text-indigo-600">Our Team</h1>
+        <p class="text-lg text-gray-600 mt-2">
+          Meet the fantastic members of our team.
+        </p>
+      </div>
+
+      <!-- Team Members Section -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8"
+      >
+        <!-- Team Member Card 1 -->
+        <div class="relative p-4 rounded-lg overflow-hidden">
+          <img
+            src="bhayaji.jpg"
+            alt="Team Member 1"
+            class="h-60 object-cover rounded-2xl mx-auto mb-4"
+          />
+          <div class="text-center">
+            <h2 class="text-lg font-semibold mb-2">shriram Yelgate</h2>
+            <p class="text-sm text-gray-600">Team Leader</p>
+          </div>
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50 text-white text-center"
+          >
+            <div>
+              <p class="text-sm">
+                Shriram Yelgate, our cycling maestro, guides The Reddy Cyclone
+                with a flair for adventure and a trailblazing spirit
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="relative p-4 rounded-lg overflow-hidden">
+          <img
+            src="narshig.jpg"
+            alt="Team Member 1"
+            class="h-60 object-cover rounded-2xl mx-auto mb-4"
+          />
+          <div class="text-center">
+            <h2 class="text-lg font-semibold mb-2">Narshing Gomare</h2>
+            <p class="text-sm text-gray-600">Co-Leader</p>
+          </div>
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50 text-white text-center"
+          >
+            <div>
+              <p class="text-sm">
+                Narsinha Gomare, co-leading with green zeal, propels The Reddy
+                Cyclone towards eco-conscious cycling thrills. 🌿🚴‍♂️✨
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="relative p-4 rounded-lg overflow-hidden">
+          <img
+            src="dsk.jpg"
+            alt="Team Member 1"
+            class="h-60 object-cover rounded-2xl mx-auto mb-4"
+          />
+          <div class="text-center">
+            <h2 class="text-lg font-semibold mb-2">Dayanand Kodbole</h2>
+            <p class="text-sm text-gray-600">Fitness Advisor</p>
+          </div>
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50 text-white text-center"
+          >
+            <div>
+              <p class="text-sm">
+                Dayanand Kodbole, our fitness advisor, transforms pedal strokes
+                into power, fueling The Reddy Cyclone's journey with speed,
+                strength, and a dash of thrill. 🚴‍♂️💪🌟
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="relative p-4 rounded-lg overflow-hidden">
+          <img
+            src="manoj.jpg"
+            alt="Team Member 1"
+            class="h-60 object-cover rounded-2xl mx-auto mb-4"
+          />
+          <div class="text-center">
+            <h2 class="text-lg font-semibold mb-2">Manoj kuchme</h2>
+            <p class="text-sm text-gray-600">Technical Support</p>
+          </div>
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50 text-white text-center"
+          >
+            <div>
+              <p class="text-sm">
+                Manoj Kuchame, our technical support virtuoso, ensures The Reddy
+                Cyclone glides smoothly through every cycling realm, combining
+                expertise with a touch of technical magic. 🚴‍♂️💻🌪️
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="relative p-4 rounded-lg overflow-hidden">
+          <img
+            src="praven.jpg"
+            alt="Team Member 1"
+            class="h-60 object-cover rounded-2xl mx-auto mb-4"
+          />
+          <div class="text-center">
+            <h2 class="text-lg font-semibold mb-2">Pravin Gomare</h2>
+            <p class="text-sm text-gray-600">Member</p>
+          </div>
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50 text-white text-center"
+          >
+            <div>
+              <p class="text-sm">
+                Praven Gomare, a spirited member of The Reddy Cyclone, adds his
+                infectious enthusiasm to our pedal-powered adventures, making
+                every journey a joyous escapade. 🚴‍♂️😊🌈
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="relative p-4 rounded-lg overflow-hidden">
+          <img
+            src="venket.jpg"
+            alt="Team Member 1"
+            class="h-60 object-cover rounded-2xl mx-auto mb-4"
+          />
+          <div class="text-center">
+            <h2 class="text-lg font-semibold mb-2">Venket Gomare</h2>
+            <p class="text-sm text-gray-600">Member</p>
+          </div>
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50 text-white text-center"
+          >
+            <div>
+              <p class="text-sm">
+                Venket Gomage, a valued member of The Reddy Cyclone, contributes
+                his adventurous spirit to our dynamic rides, infusing every
+                pedal with a trailblazing energy. 🚴‍♂️🌟🏞️
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="relative p-4 rounded-lg overflow-hidden">
+       
+          <img
+            src="mg.jpg"
+            alt="Team Member 1"
+            class="h-60 object-cover rounded-2xl mx-auto mb-4"
+          />
+          <div class="text-center">
+            <h2 class="text-lg font-semibold mb-2">Mohan Gomare</h2>
+            <p class="text-sm text-gray-600">Member</p>
+          </div>
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50 text-white text-center"
+          >
+            <div>
+             <a href="https://www.strava.com/athletes/mohan_gomare">
+              <p class="text-sm">
+                Mohan Gomare, a future leader in the making within The Reddy
+                Cyclone, pedals with a passion that foretells a trailblazing
+                journey ahead. 🚴‍♂️🌌🚀
+              </p>
+               </a>
+            </div>
+          </div>
+         
+        </div>
+
+        <!-- Repeat the structure for other team members -->
+      </div>
+    </div>
+    <!-- Achievements Section -->
+    <div id="achievements" class="container mx-auto mt-8 p-8">
+      <div class="text-center">
+        <h1 class="text-4xl font-extrabold text-indigo-600 mb-4">
+          🏆 Our Achievements 🚴
+        </h1>
+        <p class="text-lg text-gray-600 mt-2">
+          Celebrating milestones that define our journey.
+        </p>
+      </div>
+
+      <!-- Achievements Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
+        <!-- Achievement 1 - Tirupati -->
+        <div
+          class="bg-green-200 p-6 shadow-md rounded-lg text-center transform hover:scale-105 transition-transform"
+        >
+          <h2 class="text-xl font-semibold mb-2">Tirupati Tour</h2>
+          <p class="text-gray-700">
+            Pedaling 950 kilometers from Latur to Tirupati with a seven-member
+            group is an invigorating adventure, forging lasting bonds of
+            camaraderie and culminating in the spiritual embrace of the
+            Venkateswara Temple atop the Tirumala Hills.
+          </p>
+          <img
+            src="gall15.jpeg"
+            alt="Tirupati Expedition"
+            class="mt-4 rounded-xl mx-auto"
+          />
+          <p class="text-gray-700 mt-4">
+            Team Members:
+            <span class="font-semibold">All Members</span>
+          </p>
+        </div>
+
+        <!-- Achievement 2 - 100 Days -->
+        <div
+          class="bg-blue-200 p-6 shadow-md rounded-lg text-center transform hover:scale-105 transition-transform"
+        >
+          <h2 class="text-xl font-semibold mb-2">100 Consecutive Days</h2>
+          <p class="text-gray-700">
+            Embarking on a 100 consecutive days challenge, whether it be for
+            fitness, learning, or personal growth, represents a remarkable
+            journey of commitment, discipline, and continuous effort.
+          </p>
+          <img
+            src="group.jpg"
+            alt="100 Consecutive Days"
+            class="mt-4 rounded-2xl mx-auto"
+          />
+          <p class="text-gray-700 mt-4">
+            Team Members:
+            <span class="font-semibold">All Members</span>
+          </p>
+        </div>
+
+        <!-- Achievement 3 - 200 km -->
+        <div
+          class="bg-yellow-200 p-6 shadow-md rounded-lg text-center transform hover:scale-105 transition-transform"
+        >
+          <h2 class="text-xl font-semibold mb-2">200 km in a Single Ride</h2>
+          <p class="text-gray-700">
+            Achieving a 200-kilometer distance in a single ride is a testament
+            to both physical endurance and mental resilience, marking a
+            significant milestone in the realm of long-distance cycling.
+          </p>
+          <img
+            src="gall4.jpeg"
+            alt="200 km Single Ride"
+            class="mt-4 rounded-full mx-auto"
+          />
+          <p class="text-gray-700 mt-4">
+            Team Members:
+            <span class="font-semibold">All Members</span>
+          </p>
+        </div>
+
+        <!-- Achievement 4 - Latur to Tuljapur -->
+        <div
+          class="bg-pink-200 p-6 shadow-md rounded-lg text-center transform hover:scale-105 transition-transform"
+        >
+          <h2 class="text-xl font-semibold mb-2">
+            Latur to Tuljapur 
+          </h2>
+          <p class="text-gray-700">
+            Pedaling from Latur to Tuljapur, a 100-kilometer journey, unveils
+            the picturesque rural landscapes and culminates at the sacred Tulja
+            Bhavani Temple.
+          </p>
+          <img
+            src="gall16.jpeg"
+            alt="Latur to Tuljapur Expedition"
+            class="mt-4 rounded-2xl mx-auto"
+          />
+          <p class="text-gray-700 mt-4">
+            Team Members:
+            <span class="font-semibold"
+              >All Memebers</span
+            >
+          </p>
+        </div>
+        <div
+          class="bg-blue-200 p-6 shadow-md rounded-lg text-center transform hover:scale-105 transition-transform"
+        >
+          <h2 class="text-xl font-semibold mb-2">
+            Latur to Pandharpur 
+          </h2>
+          <p class="text-gray-700">
+            Covering the distance from Latur to Pandharpur, a journey of around 250 kilometers, offers a pilgrimage-like experience as cyclists traverse through diverse landscapes, connecting urban Latur to the spiritual town of Pandharpur, known for the Vithoba temple.
+          </p>
+          <img
+            src="gall17.jpeg"
+            alt="Latur to Tuljapur Expedition"
+            class="mt-4 rounded-2xl mx-auto"
+          />
+          <p class="text-gray-700 mt-4">
+            Team Members:
+            <span class="font-semibold"
+              >All Team Memebers and Latur Cycling Group</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN (Center website) -->
+    <div class="border border-black pt-4 m-4 p-2 rounded-2xl bg-gray-100">
+      <div class="text-center">
+        <h1 class="text-4xl font-extrabold text-indigo-600 mb-4">
+          🏆 Our Achievements Gallery 🚴
+        </h1>
+        <p class="text-lg text-gray-600 mt-2">
+          Explore our achievements through captivating images.
+        </p>
+      </div>
+
+      <div id="myBtnContainer">
+        <button class="btn active" onclick="filterSelection('all')">
+          Show all
+        </button>
+        <button class="btn" onclick="filterSelection('nature')">Solo</button>
+        <button class="btn" onclick="filterSelection('cars')">Group</button>
+        <button class="btn" onclick="filterSelection('people')">Rides</button>
+      </div>
+
+      <!-- Portfolio Gallery Grid -->
+      <div class="row">
+        <div class="column nature">
+          <div class="content">
+            <img src="gall2.jpeg" alt="Mountains" style="width: 100% ; height : 60%"  />
+             </div>
+        </div>
+       
+      
+        <div class="column nature">
+          <div class="content">
+            <img src="gall25.jpeg" alt="Mountains" style="width: 100% ; height : 60%"  />
+             </div>
+        </div>
+        <div class="column nature">
+          <div class="content">
+            <img src="gall11.jpeg" alt="Mountains" style="width: 100% ; height : 60%"  />
+             </div>
+        </div>
+       
+      
+        <div class="column nature">
+          <div class="content">
+            <img src="gall14.jpeg" alt="Mountains" style="width: 100% ; height : 60%"  />
+             </div>
+        </div>
+        <div class="column nature">
+          <div class="content">
+            <img src="gall24.jpeg" alt="Mountains" style="width: 100% ; height : 60%"  />
+             </div>
+        </div>
+        <div class="column nature">
+          <div class="content">
+            <img src="venket.jpeg" alt="Mountains" style="width: 100% ; height : 60%"  />
+             </div>
+        </div>
+        <div class="column nature">
+          <div class="content">
+            <img src="dsk.jpg" alt="Mountains" style="width: 100% ; height : 60%"  />
+             </div>
+        </div>
+       
+        <div class="column nature">
+          <div class="content">
+            <img src="manoj.jpg" alt="Mountains" style="width: 100% ; height : 60%"  />
+             </div>
+        </div>
+       
+        <div class="column cars">
+          <div class="content">
+            <img src="gall3.jpeg" alt="Car" style="width: 100%" />
+           
+          </div>
+        </div>
+        <div class="column cars">
+          <div class="content">
+            <img src="gall4.jpeg" alt="Car" style="width: 100%" />
+           
+          </div>
+        </div>
+       
+        <div class="column cars">
+          <div class="content">
+            <img src="gall6.jpeg" alt="Car" style="width: 100%" />
+           
+          </div>
+        </div>
+       
+        <div class="column cars">
+          <div class="content">
+            <img src="gall16.jpeg" alt="Car" style="width: 100%" />
+           
+          </div>
+        </div>
+        <div class="column cars">
+          <div class="content">
+            <img src="group2.jpeg" alt="Car" style="width: 100%" />
+           
+          </div>
+        </div>
+        <div class="column cars">
+          <div class="content">
+            <img src="gall17.jpeg" alt="Car" style="width: 100%" />
+           
+          </div>
+        </div>
+        <div class="column cars">
+          <div class="content">
+            <img src="gall13.jpeg" alt="Car" style="width: 100%" />
+           
+          </div>
+        </div>
+        <div class="column cars">
+          <div class="content">
+            <img src="gall15.jpeg" alt="Car" style="width: 100%" />
+           
+          </div>
+        </div>
+       
+        <div class="column people">
+          <div class="content">
+            <img src="gall20.jpeg" alt="Car" style="width: 100%" />
+            
+          </div>
+        </div>
+      
+        <div class="column people">
+          <div class="content">
+            <img src="gall18.jpeg" alt="Car" style="width: 100%" />
+            
+          </div>
+        </div>
+      
+        <div class="column people">
+          <div class="content">
+            <img src="gall23.jpeg" alt="Car" style="width: 100%" />
+            
+          </div>
+        </div>
+      
+        <div class="column people">
+          <div class="content">
+            <img src="gall22.jpeg" alt="Car" style="width: 100%" />
+            
+          </div>
+        </div>
+        <div class="column people">
+          <div class="content">
+            <img src="gall21.jpeg" alt="Car" style="width: 100%" />
+            
+          </div>
+        </div>
+        <div class="column people">
+          <div class="content">
+            <img src="gall17.jpeg" alt="Car" style="width: 100%" />
+            
+          </div>
+        </div>
+      
+        <div class="column people">
+          <div class="content">
+            <img src="gall26.jpeg" alt="Car" style="width: 100%" />
+            
+          </div>
+        </div>
+      
+        <!-- END GRID -->
+      </div>
+
+      <!-- END MAIN -->
+    </div>
+
+    <!-- Developer Section Box -->
+    <div class="bg-white py-24 sm:py-32" >
+      <div
+        class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3"
+      >
+        <div class="max-w-2xl">
+          <h2
+            class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+          >
+            Meet our Developers
+          </h2>
+          <p class="mt-6 text-lg leading-8 text-gray-600">
+            Crafted with passion and precision by a visionary developer, turning
+            ideas into digital reality with seamless elegance
+          </p>
+        </div>
+        <ul
+          role="list"
+          class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
+        >
+          <li>
+            <div class="flex items-center gap-x-6">
+              <img class="h-16 w-16 rounded-full" src="vaibhav.jpeg" alt="" />
+              <div>
+                <h3
+                  class="text-base font-semibold leading-7 tracking-tight text-gray-900"
+                >
+                  Vaibhav Mohanalkar
+                </h3>
+                <p class="text-sm font-semibold leading-6 text-indigo-600">
+                  MERN Stack Developer
+                </p>
+                <div class="flex space-x-2 mt-1">
+                  <!-- Instagram Icon -->
+                  <a
+                    href="#"
+                    target="_blank"
+                    class="text-gray-600 hover:text-indigo-600 transition duration-300"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M21 2H3c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 3h-3c-.6 0-1 .4-1 1v3c0 .6.4 1 1 1h3c.6 0 1-.4 1-1V6c0-.6-.4-1-1-1zm-9 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 5c-1.3 0-2.5-.8-3.1-2H8.1v3.7c.6.3 1.2.5 1.9.5 2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4h-1c-1.1 0-2 .9-2 2s.9 2 2 2h10c1.1 0 2-.9 2-2s-.9-2-2-2zm-1 2H8c-.6 0-1-.4-1-1s.4-1 1-1h3c.6 0 1 .4 1 1s-.4 1-1 1z"
+                      ></path>
+                    </svg>
+                  </a>
+
+                  <!-- LinkedIn Icon -->
+                  <a
+                    href="https://www.linkedin.com/in/vaibhavmohanalkar/"
+                    target="_blank"
+                    class="text-gray-600 hover:text-indigo-600 transition duration-300"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 3C5 2.44772 5.44772 2 6 2C6.55228 2 7 2.44772 7 3C7 3.55228 6.55228 4 6 4C5.44772 4 5 3.55228 5 3ZM3 4C3 3.44772 3.44772 3 4 3C4.55228 3 5 3.44772 5 4C5 4.55228 4.55228 5 4 5C3.44772 5 3 4.55228 3 4ZM3 6V20C3 20.5523 3.44772 21 4 21C4.55228 21 5 20.5523 5 20V6C5 5.44772 4.55228 5 4 5C3.44772 5 3 5.44772 3 6ZM19 10V20C19 20.5523 18.5523 21 18 21C17.4477 21 17 20.5523 17 20V14H15V20C15 20.5523 14.5523 21 14 21C13.4477 21 13 20.5523 13 20V10C13 9.44772 13.4477 9 14 9C14.5523 9 15 9.44772 15 10ZM21 4C21 3.44772 20.5523 3 20 3C19.4477 3 19 3.44772 19 4C19 4.55228 19.4477 5 20 5C20.5523 5 21 4.55228 21 4ZM18 6C18 5.44772 17.5523 5 17 5C16.4477 5 16 5.44772 16 6C16 6.55228 16.4477 7 17 7C17.5523 7 18 6.55228 18 6Z"
+                      ></path>
+                    </svg>
+                  </a>
+
+                  <!-- GitHub Icon -->
+                  <a
+                    href="#"
+                    target="_blank"
+                    class="text-gray-600 hover:text-indigo-600 transition duration-300"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM16 17s-1.5 1-4 1-4-1-4-1"
+                      ></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="flex items-center gap-x-6">
+              <img class="h-16 w-16 rounded-full" src="mg.jpg" alt="" />
+              <div>
+                <h3
+                  class="text-base font-semibold leading-7 tracking-tight text-gray-900"
+                >
+                  Mohan Gomare
+                </h3>
+                <p class="text-sm font-semibold leading-6 text-indigo-600">
+                  Domain Manager
+                </p>
+                <div class="flex space-x-2 mt-1">
+                  <!-- Instagram Icon -->
+                  <a
+                    href="#"
+                    target="_blank"
+                    class="text-gray-600 hover:text-indigo-600 transition duration-300"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M21 2H3c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 3h-3c-.6 0-1 .4-1 1v3c0 .6.4 1 1 1h3c.6 0 1-.4 1-1V6c0-.6-.4-1-1-1zm-9 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 5c-1.3 0-2.5-.8-3.1-2H8.1v3.7c.6.3 1.2.5 1.9.5 2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4h-1c-1.1 0-2 .9-2 2s.9 2 2 2h10c1.1 0 2-.9 2-2s-.9-2-2-2zm-1 2H8c-.6 0-1-.4-1-1s.4-1 1-1h3c.6 0 1 .4 1 1s-.4 1-1 1z"
+                      ></path>
+                    </svg>
+                  </a>
+
+                  <!-- LinkedIn Icon -->
+                  <a
+                    href="#"
+                    target="_blank"
+                    class="text-gray-600 hover:text-indigo-600 transition duration-300"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 3C5 2.44772 5.44772 2 6 2C6.55228 2 7 2.44772 7 3C7 3.55228 6.55228 4 6 4C5.44772 4 5 3.55228 5 3ZM3 4C3 3.44772 3.44772 3 4 3C4.55228 3 5 3.44772 5 4C5 4.55228 4.55228 5 4 5C3.44772 5 3 4.55228 3 4ZM3 6V20C3 20.5523 3.44772 21 4 21C4.55228 21 5 20.5523 5 20V6C5 5.44772 4.55228 5 4 5C3.44772 5 3 5.44772 3 6ZM19 10V20C19 20.5523 18.5523 21 18 21C17.4477 21 17 20.5523 17 20V14H15V20C15 20.5523 14.5523 21 14 21C13.4477 21 13 20.5523 13 20V10C13 9.44772 13.4477 9 14 9C14.5523 9 15 9.44772 15 10ZM21 4C21 3.44772 20.5523 3 20 3C19.4477 3 19 3.44772 19 4C19 4.55228 19.4477 5 20 5C20.5523 5 21 4.55228 21 4ZM18 6C18 5.44772 17.5523 5 17 5C16.4477 5 16 5.44772 16 6C16 6.55228 16.4477 7 17 7C17.5523 7 18 6.55228 18 6Z"
+                      ></path>
+                    </svg>
+                  </a>
+
+                  <!-- GitHub Icon -->
+                  <a
+                    href="#"
+                    target="_blank"
+                    class="text-gray-600 hover:text-indigo-600 transition duration-300"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM16 17s-1.5 1-4 1-4-1-4-1"
+                      ></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- More people... -->
+        </ul>
+      </div>
+    </div>
+
+
+<footer class="bg-gray-800 text-white p-6 " >
+    <div class="container mx-auto flex justify-between flex flex-col lg:flex-row" >
+        <!-- Team Member 1 -->
+        <div class="w-full md:w-1/4">
+            <h3 class="text-lg font-semibold mb-2">shriram Yelgate (Team Lead )</h3>
+            <p>Email:  rajnadani9966@gmail.com</p>
+            <p>Phone: +91 9765709966</p>
+        </div>
+        
+        <!-- Team Member 2 -->
+        <div class="w-full md:w-1/4">
+            <h3 class="text-lg font-semibold mb-2">Narsinha Gomare (Co-Leader)</h3>
+            <p>Email: narsinhagomare@gmail.com</p>
+            <p>Phone: +91 9763619728</p>
+        </div>
+
+        <!-- Team Member 3 -->
+        <div class="w-full md:w-1/4">
+            <h3 class="text-lg font-semibold mb-2">Mohan Gomare (Member)</h3>
+            <p>Email: mohangomare12@gmail.com</p>
+            <p>Phone: +91 8830684300</p>
+        </div>
+
+        <!-- Group Contact -->
+        <div class="w-full md:w-1/4">
+            <h3 class="text-lg font-semibold mb-2">Group Contact</h3>
+            <p>Email: reddycycling@gmail.com</p>
+            <p>Phone: +91 coming soon........</p>
+        </div>
+    </div>
+
+    <!-- Address -->
+    <div class="text-center mt-6">
+        <p>At post Babhalgaon,413531</p>
+    </div>
+     <div class="container mx-auto text-start">
+        <p>&copy; 2024 Your Website. All rights reserved.</p>
+      </div>
+</footer>
+
+
+ <script>
+        function scrollToBottom() {
+            // Get the height of the entire document
+            const documentHeight = Math.max(
+                document.body.scrollHeight,
+                document.body.offsetHeight,
+                document.documentElement.clientHeight,
+                document.documentElement.scrollHeight,
+                document.documentElement.offsetHeight
+            );
+
+            // Scroll to the end of the page
+            window.scrollTo({
+                top: documentHeight,
+                behavior: 'smooth' // Use 'auto' for an instant scroll
+            });
+        }
+    </script>
+   
+    <script>
+      filterSelection("all");
+      function filterSelection(c) {
+        var x, i;
+        x = document.getElementsByClassName("column");
+        if (c == "all") c = "";
+        for (i = 0; i < x.length; i++) {
+          w3RemoveClass(x[i], "show");
+          if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+        }
+      }
+
+      function w3AddClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+          if (arr1.indexOf(arr2[i]) == -1) {
+            element.className += " " + arr2[i];
+          }
+        }
+      }
+
+      function w3RemoveClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+          while (arr1.indexOf(arr2[i]) > -1) {
+            arr1.splice(arr1.indexOf(arr2[i]), 1);
+          }
+        }
+        element.className = arr1.join(" ");
+      }
+
+      // Add active class to the current button (highlight it)
+      var btnContainer = document.getElementById("myBtnContainer");
+      var btns = btnContainer.getElementsByClassName("btn");
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+          var current = document.getElementsByClassName("active");
+          current[0].className = current[0].className.replace(" active", "");
+          this.className += " active";
+        });
+      }
+    </script>
+
+    <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com -->
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+    <script>
+      // Toggle menu visibility on small screens
+      document
+        .getElementById("menu-toggle")
+        .addEventListener("click", function () {
+          document.getElementById("menu").classList.toggle("hidden");
+        });
+    </script>
+  </body>
+</html>
